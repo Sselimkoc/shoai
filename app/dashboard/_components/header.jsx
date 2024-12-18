@@ -4,10 +4,7 @@ import React from "react";
 
 function Header() {
   return (
-    <div
-      className="flex justify-between items-center px-8 py-6 bg-gradient-to-r from-orange-400 to-yellow-400
-shadow-lg rounded-lg h-32"
-    >
+    <>
       {/* Logo */}
       <div className="flex items-center gap-6">
         <Image
@@ -21,12 +18,7 @@ shadow-lg rounded-lg h-32"
           AI Video Generator
         </h1>
       </div>
-
-      {/* User Button */}
-      <div className="flex items-center">
-        <UserButton />
-      </div>
-    </div>
+    </>
   );
 }
 
