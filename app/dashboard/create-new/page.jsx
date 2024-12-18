@@ -18,6 +18,11 @@ export default function CreateNew() {
   const handleGenerateVideo = async () => {
     setLoading(true);
     console.log("Generating Video with Data: ", formData);
+    if (!formData.topic || !formData.style || !formData.duration) {
+      alert("Please select all options to generate video.");
+      setLoading(false);
+      return;
+    }
     const prompt =
       "Write a script to generate " +
       formData.duration +
@@ -29,11 +34,9 @@ export default function CreateNew() {
 
     try {
       const result = await chatSession.sendMessage(prompt);
-      console.log("Generated Script:", result.response.text()); // Assuming this is the correct way to access the response text
-      // ... use the result from chatSession in your response
+      console.log("Generated Script:", result.response.text()); 
     } catch (e) {
       console.error("Error:", e);
-      // Handle errors appropriately
     }
     setLoading(false);
   };
@@ -55,8 +58,6 @@ export default function CreateNew() {
 
       {/* Selection Sections */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {" "}
-        {/* 3 sütunlu grid */}
         <SelectTopic setData={handleSetData} />
         <SelectStyle setData={handleSetData} />
         <SelectDuration setData={handleSetData} />
