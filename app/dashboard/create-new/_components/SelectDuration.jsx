@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -7,13 +9,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function SelectDuration({ setData }) {
-  const [selectedDuration, setSelectedDuration] = useState("");
+export default function SelectDuration({ setData, initialValue }) {
+  const [selectedDuration, setSelectedDuration] = useState(initialValue || "");
   const durations = [
-    "Short (15 seconds)",
-    "Medium (30 seconds)",
-    "Long (1 minute)",
+    { value: "Short (15 seconds)", label: "Short (15 seconds)" },
+    { value: "Medium (30 seconds)", label: "Medium (30 seconds)" },
+    { value: "Long (1 minute)", label: "Long (1 minute)" },
   ];
+
+  useEffect(() => {
+    // initialValue değiştiğinde state'i güncelle
+    setSelectedDuration(initialValue || "");
+  }, [initialValue]);
 
   const handleDurationChange = (value) => {
     setSelectedDuration(value);
@@ -24,17 +31,17 @@ function SelectDuration({ setData }) {
     <div className="flex flex-col items-start space-y-4">
       {/* Select Dropdown */}
       <Select value={selectedDuration} onValueChange={handleDurationChange}>
-        <SelectTrigger className="w-[250px] border border-gray-300 rounded-md shadow-md bg-white text-gray-800">
-          <SelectValue placeholder="Select Style" />
+        <SelectTrigger className="w-full border border-gray-300 rounded-md shadow-md bg-white text-gray-800">
+          <SelectValue placeholder="Select a Duration" />
         </SelectTrigger>
         <SelectContent>
           {durations.map((duration) => (
             <SelectItem
-              key={duration}
-              value={duration}
+              key={duration.value}
+              value={duration.value}
               className="text-gray-700 hover:bg-gray-200"
             >
-              {duration}
+              {duration.label}
             </SelectItem>
           ))}
         </SelectContent>
@@ -42,5 +49,3 @@ function SelectDuration({ setData }) {
     </div>
   );
 }
-
-export default SelectDuration;

@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -7,31 +9,44 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function SelectTopic({ setData }) {
-  const [selectedTopic, setSelectedTopic] = useState("");
+export default function SelectTopic({ setData, initialValue }) {
+  const [selectedTopic, setSelectedTopic] = useState(initialValue || "");
+  const textareaRef = useRef(null);
 
   const topics = [
-    "Custom Prompt",
-    "Random AI Story",
-    "Funny Story",
-    "Scary Story",
-    "Romantic Story",
-    "Detective Story",
-    "Horror Story",
-    "Comedy Story",
-    "Historical Story",
-    "Motivational Story",
-    "Educational Story",
-    "How-To Story",
-    "DIY Story",
+    { value: "Custom Prompt", label: "Custom Prompt" },
+    { value: "Random AI Story", label: "Random AI Story" },
+    { value: "Funny Story", label: "Funny Story" },
+    { value: "Scary Story", label: "Scary Story" },
+    { value: "Romantic Story", label: "Romantic Story" },
+    { value: "Detective Story", label: "Detective Story" },
+    { value: "Horror Story", label: "Horror Story" },
+    { value: "Comedy Story", label: "Comedy Story" },
+    { value: "Historical Story", label: "Historical Story" },
+    { value: "Motivational Story", label: "Motivational Story" },
+    { value: "Educational Story", label: "Educational Story" },
+    { value: "How-To Story", label: "How-To Story" },
+    { value: "DIY Story", label: "DIY Story" },
   ];
+
+  useEffect(() => {
+    setSelectedTopic(initialValue || "");
+  }, [initialValue]);
+
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px";
+    }
+  };
 
   const handleTopicChange = (value) => {
     setSelectedTopic(value);
     if (value !== "Custom Prompt") {
       setData("topic", value);
     } else {
-      setData("topic", ""); 
+      setData("topic", "");
     }
   };
 
@@ -39,17 +54,17 @@ function SelectTopic({ setData }) {
     <div className="flex flex-col items-start space-y-4">
       {/* Select Dropdown */}
       <Select value={selectedTopic} onValueChange={handleTopicChange}>
-        <SelectTrigger className="w-[250px] border border-gray-300 rounded-md shadow-md bg-white text-gray-800">
-          <SelectValue placeholder="Select Content Type" />
+        <SelectTrigger className="w-full border border-gray-300 rounded-md shadow-md bg-white text-gray-800">
+          <SelectValue placeholder="Select a Topic" />
         </SelectTrigger>
         <SelectContent>
           {topics.map((topic) => (
             <SelectItem
-              key={topic}
-              value={topic}
+              key={topic.value}
+              value={topic.value}
               className="text-gray-700 hover:bg-gray-200"
             >
-              {topic}
+              {topic.label}
             </SelectItem>
           ))}
         </SelectContent>
@@ -64,17 +79,20 @@ function SelectTopic({ setData }) {
           >
             Enter your custom prompt:
           </label>
-          <input
+          <textarea
+            ref={textareaRef}
             id="customPrompt"
-            type="text"
-            className="w-full border text-gray-700 border-gray-300 rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            rows="1"
+            className="w-full min-h-[40px] max-h-[200px] border text-gray-700 border-gray-300 rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 resize-none overflow-hidden"
             placeholder="Type your prompt here..."
-            onChange={(e) => setData("topic", e.target.value)}
+            onChange={(e) => {
+              setData("topic", e.target.value);
+              adjustTextareaHeight();
+            }}
+            onInput={adjustTextareaHeight}
           />
         </div>
       )}
     </div>
   );
 }
-
-export default SelectTopic;

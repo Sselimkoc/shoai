@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -7,15 +9,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function SelectStyle({ setData }) {
-  const [selectedStyle, setSelectedStyle] = useState("");
+export default function SelectStyle({ setData, initialValue }) {
+  const [selectedStyle, setSelectedStyle] = useState(initialValue || "");
   const styles = [
-    { name: "Realistic", image: "" },
-    { name: "Cartoon", image: "" },
-    { name: "Anime", image: "" },
-    { name: "Pixel", image: "" },
-    { name: "GTA", image: "" },
+    { value: "Realistic", label: "Realistic", image: "" },
+    { value: "Cartoon", label: "Cartoon", image: "" },
+    { value: "Anime", label: "Anime", image: "" },
+    { value: "Pixel", label: "Pixel", image: "" },
+    { value: "GTA", label: "GTA", image: "" },
   ];
+
+  useEffect(() => {
+    // initialValue değiştiğinde state'i güncelle
+    setSelectedStyle(initialValue || "");
+  }, [initialValue]);
 
   const handleStyleChange = (value) => {
     setSelectedStyle(value);
@@ -26,17 +33,17 @@ function SelectStyle({ setData }) {
     <div className="flex flex-col items-start space-y-4">
       {/* Select Dropdown */}
       <Select value={selectedStyle} onValueChange={handleStyleChange}>
-        <SelectTrigger className="w-[250px] border border-gray-300 rounded-md shadow-md bg-white text-gray-800">
-          <SelectValue placeholder="Select Style" />
+        <SelectTrigger className="w-full border border-gray-300 rounded-md shadow-md bg-white text-gray-800">
+          <SelectValue placeholder="Select a Style" />
         </SelectTrigger>
         <SelectContent>
           {styles.map((style) => (
             <SelectItem
-              key={style.name}
-              value={style.name}
+              key={style.value}
+              value={style.value}
               className="text-gray-700 hover:bg-gray-200"
             >
-              {style.name}
+              {style.label}
             </SelectItem>
           ))}
         </SelectContent>
@@ -44,5 +51,3 @@ function SelectStyle({ setData }) {
     </div>
   );
 }
-
-export default SelectStyle;
