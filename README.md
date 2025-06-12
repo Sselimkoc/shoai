@@ -1,28 +1,53 @@
-# Shoaivideo - AI Video Generator
+# ShoAI Video Generator
 
-## About the Project
-Shoaivideo is a modern web application that uses artificial intelligence to create video scripts and transform them into voice narrations.
+## Overview
+ShoAI Video Generator is a modern web application that leverages artificial intelligence to create customized video content. The application allows users to generate video scripts, transform them into voice narrations, and create AI-generated visuals for each scene.
 
-## Features
-- 🎥 Customizable video scripts
-- 🎨 Various video styles (Realistic, Cartoon, Anime, Pixel, GTA)
-- ⏱️ Flexible video durations (15 seconds, 30 seconds, 1 minute)
-- 🗣️ AI-powered voice synthesis
-- 🎭 Various voice characters and settings
-- 📝 Custom script input support
+## Key Features
+- 🎬 AI-Powered Video Script Generation
+- 🎨 Multiple Video Style Options:
+  - Realistic
+  - Cartoon
+  - Anime
+  - Pixel Art
+  - GTA Style
+- ⏱️ Flexible Video Durations:
+  - 15 seconds
+  - 30 seconds
+  - 1 minute
+- 🗣️ Text-to-Speech Capabilities
+- 🎭 Scene-by-Scene Generation
+- 📝 Custom Topic Input
+- 🖼️ AI Image Generation for Each Scene
 
-## Technologies
-- Next.js 14
-- React 18
-- Tailwind CSS
-- Radix UI
-- Google AI
-- TypeScript
+## Technology Stack
+- **Frontend:**
+  - Next.js 14
+  - React 18
+  - TypeScript
+  - Tailwind CSS
+  - Radix UI Components
+- **AI Services:**
+  - Google Generative AI (Gemini)
+- **Styling:**
+  - Tailwind CSS
+  - CSS Modules
+- **Database:**
+  - PostgreSQL (with Drizzle ORM)
 
-## Installation
-1. Clone the project:
+## Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+- PostgreSQL database
+
+### Installation
+
+1. Clone the repository:
 ```bash
-git clone [repo-url]
+git clone https://github.com/yourusername/shoaivideo.git
+cd shoaivideo
 ```
 
 2. Install dependencies:
@@ -30,29 +55,71 @@ git clone [repo-url]
 npm install
 ```
 
-3. Start the development server:
+3. Set up environment variables:
+Create a `.env` file in the root directory with the following variables:
+```env
+NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
+DATABASE_URL=your_postgresql_connection_string
+```
+
+4. Start the development server:
 ```bash
 npm run dev
 ```
 
-4. Open in your browser:
+5. Open your browser and navigate to:
 ```
 http://localhost:3000
 ```
 
-## Recent Changes
-- ✨ Removed Clerk auth system
-- 🎨 UI/UX improvements
-- 🔧 Added "use client" directive to components
-- 📦 Updated dependencies
-- 🎯 Performance optimizations
+## Project Structure
+```
+shoaivideo/
+├── app/                    # Next.js app directory
+│   ├── api/               # API routes
+│   ├── dashboard/         # Dashboard pages
+│   └── ...               # Other app routes
+├── components/            # Reusable React components
+├── configs/              # Configuration files
+├── hooks/                # Custom React hooks
+├── lib/                  # Utility functions
+└── public/              # Static assets
+```
 
-## Contributing
-1. Fork this repository
-2. Create a new branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: Add amazing feature'`)
+## Features in Detail
+
+### Video Script Generation
+- Custom topic selection
+- Multiple style options
+- Duration customization
+- Scene-by-scene script generation
+
+### AI Integration
+- Powered by Google's Gemini AI
+- Intelligent script generation
+- Scene visualization prompts
+- Natural language processing
+
+## Development
+
+### Available Scripts
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run linting
+
+### Contributing
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Create a Pull Request
+5. Open a Pull Request
 
 ## License
-MIT License - See [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+- Built with [Next.js](https://nextjs.org/)
+- AI powered by [Google Generative AI](https://ai.google.dev/)
+- UI components from [Radix UI](https://www.radix-ui.com/)
+- Styling with [Tailwind CSS](https://tailwindcss.com/)
