@@ -1,5 +1,8 @@
 # ShoAI Video Generator
 
+## Demo
+🌐 Live Demo: [ShoAI Video Generator](https://shoaivideo.vercel.app)
+
 ## Overview
 ShoAI Video Generator is a modern web application that leverages artificial intelligence to create customized video content. The application allows users to generate video scripts, transform them into voice narrations, and create AI-generated visuals for each scene.
 
@@ -123,3 +126,24 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - AI powered by [Google Generative AI](https://ai.google.dev/)
 - UI components from [Radix UI](https://www.radix-ui.com/)
 - Styling with [Tailwind CSS](https://tailwindcss.com/)
+
+## Deployment
+
+### Vercel Deployment
+This project is deployed on Vercel. To deploy your own instance:
+
+1. Fork this repository
+2. Sign up on [Vercel](https://vercel.com)
+3. Import your forked repository
+4. Set up the following environment variables in Vercel:
+   - `NEXT_PUBLIC_GEMINI_API_KEY` - Your Google AI API key
+   - `NEXT_PUBLIC_ELEVENLABS_API_KEY` - Your ElevenLabs API key
+   - `NEXT_PUBLIC_DRIZZLE_DATABASE_URL` - Your database connection string
+5. Deploy!
+
+### Database Setup
+This project uses PostgreSQL with Neon. To set up your database:
+1. Create an account on [Neon](https://neon.tech)
+2. Create a new project
+3. Copy your database connection string
+4. Add it to your Vercel environment variables
