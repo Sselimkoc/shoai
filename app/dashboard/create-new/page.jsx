@@ -79,6 +79,7 @@ export default function CreateNew() {
 
     try {
       const result = await chatSession.sendMessage(prompt);
+      console.log("Generated result:", result);
       const scriptText = result.response.text();
       console.log("Generated Script:", scriptText);
 
@@ -109,7 +110,7 @@ export default function CreateNew() {
       }
     } catch (e) {
       console.error("Error:", e);
-      alert("Failed to generate script. Please try again.");
+      alert("Failed to generate script. Please try again. " + e.message);
     }
     setLoading(false);
   };
@@ -414,33 +415,11 @@ export default function CreateNew() {
                       onChange={(e) => setSelectedVoice(e.target.value)}
                       className="w-full border border-gray-300 rounded-lg shadow-sm p-3 text-gray-700 bg-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
                     >
-                      <option value="Rachel" className="text-gray-700">
-                        Rachel (Balanced)
-                      </option>
-                      <option value="Domi" className="text-gray-700">
-                        Domi (Strong)
-                      </option>
-                      <option value="Bella" className="text-gray-700">
-                        Bella (Soft)
-                      </option>
-                      <option value="Antoni" className="text-gray-700">
-                        Antoni (Balanced)
-                      </option>
-                      <option value="Elli" className="text-gray-700">
-                        Elli (Young)
-                      </option>
-                      <option value="Josh" className="text-gray-700">
-                        Josh (Deep)
-                      </option>
-                      <option value="Arnold" className="text-gray-700">
-                        Arnold (Strong)
-                      </option>
-                      <option value="Adam" className="text-gray-700">
-                        Adam (Professional)
-                      </option>
-                      <option value="Sam" className="text-gray-700">
-                        Sam (Trustworthy)
-                      </option>
+                      {Object.keys(VOICE_IDS).map((voice) => (
+                        <option value={voice} className="text-gray-700">
+                          {voice} ({VOICE_IDS[voice]})
+                        </option>
+                      ))}
                     </select>
                   </div>
 

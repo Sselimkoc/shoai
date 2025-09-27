@@ -3,17 +3,16 @@ import { NextResponse } from "next/server";
 const ELEVENLABS_API_KEY = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY;
 const API_URL = "https://api.elevenlabs.io/v1/text-to-speech";
 
-// Ses listesi için sabit değişkenler
 const VOICE_IDS = {
   Rachel: "21m00Tcm4TlvDq8ikWAM",
-  Domi: "AZnzlk1XvdvUeBnXmlld",
-  Bella: "EXAVITQu4vr4xnSDxMaL",
-  Antoni: "ErXwobaYiN019PkySvjV",
-  Elli: "MF3mGyEYCl7XYWbV9V6O",
-  Josh: "TxGEqnHWrfWFTfGW9XjX",
-  Arnold: "VR6AewLTigWG4xSOukaG",
-  Adam: "pNInz6obpgDQGcFmaJgB",
-  Sam: "yoZ06aMxZJJ28mfd3POQ",
+  Doga: "IuRRIAcbQK5AQk1XevPj",
+  Alice: "Xb7hH8MSUJpSbSDYk0k2",
+  Charlie: "IZ09Gt5U8VtP9GJWjK07",
+  Freddie: "21m00Tcm4TlvDq8ikWAM",
+  Erin: "21m00Tcm4TlvDq8ikWAM",
+  Sarah: "21m00Tcm4TlvDq8ikWAM",
+  Ella: "21m00Tcm4TlvDq8ikWAM",
+  Emily: "21m00Tcm4TlvDq8ikWAM",
 };
 
 export async function POST(req) {

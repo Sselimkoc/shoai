@@ -9,7 +9,7 @@ export async function POST(req) {
     const result = await chatSession.sendMessage(prompt);
 
     // Check the response and format it as needed
-    const responseText = result.response.text(); // Assuming this is the correct way to access the response text
+    const responseText = result.response.text();
     console.log("Generated Script:", responseText);
 
     // Return the result as JSON
