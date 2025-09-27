@@ -6,7 +6,7 @@ import SelectTopic from "./_components/SelectTopic";
 import SelectStyle from "./_components/SelectStyle";
 import SelectDuration from "./_components/SelectDuration";
 import CustomLoading from "./_components/CustomLoading";
-import { VOICE_IDS } from "@/app/api/text-to-speech/route";
+import { VOICE_IDS } from "../../../lib/voiceIds";
 
 export default function CreateNew() {
   const [formData, setFormData] = useState({});
