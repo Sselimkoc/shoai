@@ -3,27 +3,38 @@ import { NextResponse } from "next/server";
 const ELEVENLABS_API_KEY = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY;
 const API_URL = "https://api.elevenlabs.io/v1/text-to-speech";
 
-const VOICE_IDS = {
+export const VOICE_IDS = {
   Rachel: "21m00Tcm4TlvDq8ikWAM",
-  Doga: "IuRRIAcbQK5AQk1XevPj",
-  Alice: "Xb7hH8MSUJpSbSDYk0k2",
-  Charlie: "IZ09Gt5U8VtP9GJWjK07",
-  Freddie: "21m00Tcm4TlvDq8ikWAM",
-  Erin: "21m00Tcm4TlvDq8ikWAM",
-  Sarah: "21m00Tcm4TlvDq8ikWAM",
-  Ella: "21m00Tcm4TlvDq8ikWAM",
-  Emily: "21m00Tcm4TlvDq8ikWAM",
+  Adam: "pNInz6obpgDQGcFmaJgB",
+  Bella: "EXAVITQu4vr4xnSDxMdl",
+  Domi: "AZnzlk1XvdvUeBnXmlld",
+  Elli: "MF3mGyEYCl7XYWbV9V6O",
+  Josh: "TxGEqnHWrfWFTfGW9XjX",
+  Charlie: "IKne3meq5aSn9XLyUdCD",
+  Freddie: "JSynzYvQnZrPjUn8j4EY",
 };
 
 export async function POST(req) {
   try {
-    const { text, voice = "Rachel" } = await req.json();
+    const { text, voice = "Rachel", voice_settings } = await req.json();
 
     if (!text) {
       return NextResponse.json({ error: "Text is required" }, { status: 400 });
     }
 
     const voiceId = VOICE_IDS[voice] || VOICE_IDS.Rachel;
+
+    // Debug bilgileri
+    console.log("Voice selected:", voice);
+    console.log("Voice ID:", voiceId);
+    console.log("API Key exists:", !!ELEVENLABS_API_KEY);
+
+    const defaultVoiceSettings = {
+      stability: 0.5,
+      similarity_boost: 0.75,
+    };
+
+    const finalVoiceSettings = voice_settings || defaultVoiceSettings;
 
     const response = await fetch(`${API_URL}/${voiceId}`, {
       method: "POST",
@@ -34,10 +45,7 @@ export async function POST(req) {
       body: JSON.stringify({
         text,
         model_id: "eleven_monolingual_v1",
-        voice_settings: {
-          stability: 0.5,
-          similarity_boost: 0.75,
-        },
+        voice_settings: finalVoiceSettings,
       }),
     });
 

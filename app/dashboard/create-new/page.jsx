@@ -6,6 +6,7 @@ import SelectTopic from "./_components/SelectTopic";
 import SelectStyle from "./_components/SelectStyle";
 import SelectDuration from "./_components/SelectDuration";
 import CustomLoading from "./_components/CustomLoading";
+import { VOICE_IDS } from "@/app/api/text-to-speech/route";
 
 export default function CreateNew() {
   const [formData, setFormData] = useState({});
@@ -36,7 +37,6 @@ export default function CreateNew() {
       [title]: value,
     };
     setFormData(newFormData);
-    // LocalStorage'a kaydet
     localStorage.setItem("videoGeneratorFormData", JSON.stringify(newFormData));
   };
 
@@ -83,7 +83,6 @@ export default function CreateNew() {
       const scriptText = result.response.text();
       console.log("Generated Script:", scriptText);
 
-      // JSON'ı temizle ve parse et
       const cleanJson = scriptText
         .replace(/```json\n?/, "")
         .replace(/```\n?$/, "")
@@ -96,14 +95,6 @@ export default function CreateNew() {
         // Form verilerini sıfırla
         localStorage.removeItem("videoGeneratorFormData");
         setFormData({});
-
-        // Select komponentlerini sıfırla
-        if (typeof window !== "undefined") {
-          const selectElements = document.querySelectorAll("select");
-          selectElements.forEach((select) => {
-            select.value = "";
-          });
-        }
       } catch (parseError) {
         console.error("JSON Parse Error:", parseError);
         alert("Failed to parse the generated script. Please try again.");
@@ -116,7 +107,7 @@ export default function CreateNew() {
   };
 
   const handleGenerateAudio = async (text, sceneIndex) => {
-    setShowVoiceSettings(true); // Ses ayarlarını göster
+    setShowVoiceSettings(true);
     setAudioLoadingStates((prev) => ({
       ...prev,
       [sceneIndex]: true,
@@ -157,7 +148,6 @@ export default function CreateNew() {
   };
 
   const handleReset = () => {
-    // Formu sıfırla
     localStorage.removeItem("videoGeneratorFormData");
     setFormData({});
   };
@@ -415,9 +405,13 @@ export default function CreateNew() {
                       onChange={(e) => setSelectedVoice(e.target.value)}
                       className="w-full border border-gray-300 rounded-lg shadow-sm p-3 text-gray-700 bg-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200"
                     >
-                      {Object.keys(VOICE_IDS).map((voice) => (
-                        <option value={voice} className="text-gray-700">
-                          {voice} ({VOICE_IDS[voice]})
+                      {Object.keys(VOICE_IDS).map((voice, idx) => (
+                        <option
+                          value={voice}
+                          className="text-gray-700"
+                          key={idx}
+                        >
+                          {voice}
                         </option>
                       ))}
                     </select>
