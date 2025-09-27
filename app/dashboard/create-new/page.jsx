@@ -22,6 +22,7 @@ export default function CreateNew() {
     similarity_boost: 0.75,
   });
   const [audioStates, setAudioStates] = useState({});
+  const [pendingAudioGeneration, setPendingAudioGeneration] = useState(null);
 
   // LocalStorage'dan verileri yükle
   useEffect(() => {
@@ -106,8 +107,17 @@ export default function CreateNew() {
     setLoading(false);
   };
 
-  const handleGenerateAudio = async (text, sceneIndex) => {
+  const handleGenerateAudio = (text, sceneIndex) => {
+    // Store the pending audio generation data
+    setPendingAudioGeneration({ text, sceneIndex });
     setShowVoiceSettings(true);
+  };
+
+  const handleConfirmVoiceSettings = async () => {
+    if (!pendingAudioGeneration) return;
+
+    const { text, sceneIndex } = pendingAudioGeneration;
+
     setAudioLoadingStates((prev) => ({
       ...prev,
       [sceneIndex]: true,
@@ -144,6 +154,8 @@ export default function CreateNew() {
         ...prev,
         [sceneIndex]: false,
       }));
+      setPendingAudioGeneration(null);
+      setShowVoiceSettings(false);
     }
   };
 
@@ -467,16 +479,19 @@ export default function CreateNew() {
 
                   <div className="flex justify-end space-x-3 mt-6 pt-4 border-t">
                     <button
-                      onClick={() => setShowVoiceSettings(false)}
+                      onClick={() => {
+                        setShowVoiceSettings(false);
+                        setPendingAudioGeneration(null);
+                      }}
                       className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium rounded-lg transition-colors duration-200"
                     >
                       Cancel
                     </button>
                     <button
-                      onClick={() => setShowVoiceSettings(false)}
+                      onClick={handleConfirmVoiceSettings}
                       className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors duration-200"
                     >
-                      OK
+                      Generate Audio
                     </button>
                   </div>
                 </div>

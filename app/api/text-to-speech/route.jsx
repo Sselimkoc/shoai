@@ -14,11 +14,7 @@ export async function POST(req) {
 
     const voiceId = VOICE_IDS[voice] || VOICE_IDS.Rachel;
 
-    // Debug bilgileri
-    console.log("Voice selected:", voice);
-    console.log("Voice ID:", voiceId);
-    console.log("API Key exists:", !!ELEVENLABS_API_KEY);
-
+ 
     const defaultVoiceSettings = {
       stability: 0.5,
       similarity_boost: 0.75,
