@@ -1,4 +1,4 @@
-import Header from "./_components/Header";
+import Header from "./_components/Header.jsx";
 
 export default function DashboardLayout({ children }) {
   return (
